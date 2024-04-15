@@ -24,62 +24,67 @@ public class Test {
 			int crn; int id;
 			switch(choice) {
 			case 1:
-				System.out.print("/nCRN: ");
+				System.out.print("CRN: \n");
 				crn = input.nextInt();
-				System.out.print("/nCourse name: ");
+				input.nextLine(); 
+
+				System.out.print("Course name: \n");
 				String courseName = input.nextLine();
-				System.out.print("/nCapacity: ");
+
+				System.out.print("Capacity: \n");
 				int cap = input.nextInt();
-				hashTable.addCourse(new Course(crn, courseName, cap)); //addCourse not implemented yet
+				input.nextLine(); 
+
+				LinkedQueueHashTable.addCourse(new Course(crn, courseName, cap));
 				break;
 			case 2:
-				System.out.print("/nCRN: ");
+				System.out.print("\nCRN: ");
 				crn = input.nextInt();
-				hashTable.search(crn).displayStudents(); //Search not implemented yet
+				LinkedQueueHashTable.search(crn).displayStudents(); 
 				break;
 			case 3:
-				System.out.print("/nCRN: ");
+				System.out.print("\nCRN: ");
 				crn = input.nextInt();
-				System.out.print("/nStudent ID: ");
+				System.out.print("\nStudent ID: ");
 				id = input.nextInt();
-				System.out.print("/nStudent name: ");
+				System.out.print("\nStudent name: ");
 				String name = input.nextLine();
-				hashTable.addStudent(crn, new Student(id, name)); //addStudent not implemented yet
+				LinkedQueueHashTable.addStudent(crn, new Student(id, name)); 
 				break;
-			case 4:
-				System.out.print("/nCRN: ");
-				crn = input.nextInt();
-				System.out.print("/nStudent ID: ");
-				id = input.nextInt();
-				hashTable.dropStudent(id, crn); //dropStudent not implemented yet
-				break;
-			case 5:
-				System.out.print("/nCRN: ");
-				crn = input.nextInt();
-				System.out.print("/nCapacity increase: ");
-				int capIncrease = input.nextInt();
-				hashTable.raiseCapacity(crn, capIncrease); //raiseCapacity not implemented yet
-				break;
-			case 6:
-				System.out.print("/nStudent ID: ");
-				id = input.nextInt();
-				Course[] enrolled = hashTable.studentEnrolled(id); //studentEnrolled not implemented yet
-				Course[] waiting = hashTable.studentWaiting(id); //studentWaiting not implemented yet
-				System.out.println("/nEnrolled Courses: ");
-				for(int i = 0; i < enrolled.length ; i++) 
-					enrolled[i].displayCourse();
-				System.out.println("/nWaiting Courses: ");
-				for(int j = 0; j < waiting.length ; j++)
-					waiting[j].displayCourse();
-				break;
-			case 7:
-				stop = true;
-				break;
+//			case 4:
+//				System.out.print("/nCRN: ");
+//				crn = input.nextInt();
+//				System.out.print("/nStudent ID: ");
+//				id = input.nextInt();
+//				hashTable.dropStudent(id, crn); //dropStudent not implemented yet
+//				break;
+//			case 5:
+//				System.out.print("/nCRN: ");
+//				crn = input.nextInt();
+//				System.out.print("/nCapacity increase: ");
+//				int capIncrease = input.nextInt();
+//				hashTable.raiseCapacity(crn, capIncrease); //raiseCapacity not implemented yet
+//				break;
+//			case 6:
+//				System.out.print("/nStudent ID: ");
+//				id = input.nextInt();
+//				Course[] enrolled = hashTable.studentEnrolled(id); //studentEnrolled not implemented yet
+//				Course[] waiting = hashTable.studentWaiting(id); //studentWaiting not implemented yet
+//				System.out.println("/nEnrolled Courses: ");
+//				for(int i = 0; i < enrolled.length ; i++) 
+//					enrolled[i].displayCourse();
+//				System.out.println("/nWaiting Courses: ");
+//				for(int j = 0; j < waiting.length ; j++)
+//					waiting[j].displayCourse();
+//				break;
+//			case 7:
+//				stop = true;
+//				break;
 			default:
 				System.err.println("Please enter a valid choice");
 			}
 			
-			//Save objecta
+			//Save object
 		}
 
 	}
