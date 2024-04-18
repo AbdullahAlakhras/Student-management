@@ -3,6 +3,9 @@ package content;
 import given.LinkedQueue;
 import given.SinglyLinkedList;
 
+
+
+
 public class Course {
 	private int crn;
 	private String name;
@@ -71,6 +74,8 @@ public class Course {
 		return exists;
 	}
 	
+
+
 	//Checks if student with id i is in waitingList
 	//Returns true if in waitingList false otherwise
 	//For use in studentWaiting(int i)
@@ -137,5 +142,14 @@ public class Course {
 		this.capacity = capacity;
 	}
 	
+	public SinglyLinkedList<Student> getEnrolled() {
+		return enrolled;
+	}
+
+	public LinkedQueue<Student> getWaitingList() {
+		return waitingList;
+	}
+
+
 	
 }
