@@ -32,13 +32,13 @@ public class Course {
 	//Removes a student from the course and adds a student from the waitingList (if it isn't empty) to the enrolled list
 	//returns false if student doesn't exist 
 	//For use in dropStudent(int i, int c)
-	public boolean removeStudent(Student s) {
+	public boolean removeStudent(int id) {
 		Student tmp = null;
 		boolean done = false;
 		int initialSize = enrolled.size();
 		for(int i=1;i<=initialSize;i++) {
 			tmp = enrolled.removeFirst();
-			if(tmp == s)
+			if(tmp.getId() == id)
 				done = true;
 			else
 				enrolled.addLast(tmp);
