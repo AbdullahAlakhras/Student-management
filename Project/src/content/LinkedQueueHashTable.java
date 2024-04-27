@@ -21,7 +21,7 @@ public class LinkedQueueHashTable {
 	}
 
 	private int hash(int key) {
-		return key % size;
+		return key % table.length;
 	}
 
 	private void enlarge() {
@@ -68,6 +68,7 @@ public class LinkedQueueHashTable {
 			throw new NoSuchElementException("No course with CRN: " + crn);
 		}
 		course.addStudent(s);
+		size++;
 	}
 
 	public void dropStudent(int id, int crn) {
