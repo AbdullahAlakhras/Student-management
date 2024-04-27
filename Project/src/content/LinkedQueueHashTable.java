@@ -76,7 +76,7 @@ public class LinkedQueueHashTable {
 			throw new Error("There is no Course with CRN: " + crn);
 		}
 		if(!course.removeStudent(id)) {
-			throw new Error("There is no Student in course with ID: " + id)
+			throw new Error("There is no Student in course with ID: " + id);
 		}
 	}
 
