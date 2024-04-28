@@ -70,18 +70,18 @@ public class Test {
 				int capIncrease = input.nextInt();
 				table.raiseCapacity(crn, capIncrease);
 				break;
-//			case 6:
-//				System.out.print("/nStudent ID: ");
-//				id = input.nextInt();
-//				Course[] enrolled = hashTable.studentEnrolled(id); //studentEnrolled not implemented yet
-//				Course[] waiting = hashTable.studentWaiting(id); //studentWaiting not implemented yet
-//				System.out.println("/nEnrolled Courses: ");
-//				for(int i = 0; i < enrolled.length ; i++) 
-//					enrolled[i].displayCourse();
-//				System.out.println("/nWaiting Courses: ");
-//				for(int j = 0; j < waiting.length ; j++)
-//					waiting[j].displayCourse();
-//				break;
+			case 6:
+				System.out.print("/nStudent ID: ");
+				id = input.nextInt();
+				Course[] enrolled = table.studentEnrolled(id); //studentEnrolled not implemented yet
+				Course[] waiting = table.studentWaiting(id); //studentWaiting not implemented yet
+				System.out.println("/nEnrolled Courses: ");
+				for(int i = 0; i < enrolled.length ; i++) 
+					enrolled[i].displayCourse();
+				System.out.println("/nWaiting Courses: ");
+				for(int j = 0; j < waiting.length ; j++)
+					waiting[j].displayCourse();
+				break;
 			case 7:
 				stop = true;
 				System.out.println("Thank You For Using The Students Enrollment System!!!!!");
@@ -89,8 +89,8 @@ public class Test {
 			default:
 				System.err.println("Please enter a valid choice");
 			}
-			
-			input.close();
+
+			//input.close();
 			// Save object
 		}
 

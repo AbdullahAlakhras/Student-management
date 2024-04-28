@@ -81,7 +81,109 @@ public class LinkedQueueHashTable implements Serializable {
 			throw new Error("There is no Student in course with ID: " + id);
 		}
 	}
+	/*public static Course[] studentWaiting(int i) {
+		SinglyLinkedList<Course> course= new SinglyLinkedList<Course>();
+		boolean exists =false;
+		/*for(int j=0;j<size;j++) {
+			if (table[j] == null) {
+			} else {
+				Node current = table[j];
+				while (current != null) {
+					exists= current.course.existsEnrolled(i)||current.course.existsWaiting(i);
+					current = current.next;
+				}
+			}
+		}
+		for(int j =0;j<size;j++) {
+			if(table[j]!=null) {
+				
+			}
+		}
+		if(exists) {
+			for(int j =0;j<size;j++) {
+				if(table[j]!=null) {
+					Coourse current = table[j];
+					if(current.next==null) {
+						if(current.course.existsWaiting(i)) {
+							course.addFirst(current.course);
+						}
+					}else {
+						while (current.next != null) {
+							if(current.course.existsWaiting(i)) {
+								course.addFirst(current.course);
+							}
+							current = current.next;
+						}
+					}
+				}
+			}
+			Course[] courses = new Course[course.size()];
+			int k=0;
+			while(!course.isEmpty()) {
+				courses[k++]=course.removeFirst();
+			}
+			return courses;
+		}else {
+			throw new NoSuchElementException("No Student with id: " + i + " is in table");
+		}
 
+	}*/
+	public Course[] studentWaiting(int i) {
+		SinglyLinkedList<Course> course= new SinglyLinkedList<Course>();
+		boolean exists = false;
+		for(int j =0;j<table.length;j++) {
+			if(table[j]!=null && table[j].existsWaiting(i)) {
+				course.addFirst(table[j]);
+			}
+		}
+		Course[] courses = new Course[course.size()];
+		exists=!course.isEmpty();
+		int k =0;
+		while(!course.isEmpty()) {
+			courses[k++]=course.removeFirst();
+		}
+		if(exists) {
+			return courses;
+		}else {
+			for(int f=0; f<table.length;f++) {
+				if(table[f]!=null && table[f].existsEnrolled(i)) {
+						return courses;
+				}
+			}
+		}
+		if(!exists) {
+			throw new NoSuchElementException("No Student with id: " + i + " is in table");
+		}
+		return courses;
+	}
+	public Course[] studentEnrolled(int i) {
+		SinglyLinkedList<Course> course= new SinglyLinkedList<Course>();
+		boolean exists = false;
+		for(int j =0;j<table.length;j++) {
+			if(table[j]!=null && table[j].existsEnrolled(i)) {
+				course.addFirst(table[j]);
+			}
+		}
+		Course[] courses = new Course[course.size()];
+		exists=!course.isEmpty();
+		int k =0;
+		while(!course.isEmpty()) {
+			courses[k++]=course.removeFirst();
+		}
+		if(exists) {
+			return courses;
+		}else {
+			for(int f=0; f<table.length;f++) {
+				if(table[f]!=null && table[f].existsWaiting(i)) {
+						return courses;
+				}
+			}
+		}
+		if(!exists) {
+			throw new NoSuchElementException("No Student with id: " + i + " is in table");
+		}
+		return courses;
+	}
 	public void raiseCapacity(int crn, int r) {
 		Course course = search(crn);
 		if (course == null) {
