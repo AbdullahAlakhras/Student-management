@@ -1,11 +1,12 @@
 package content;
 
+import java.io.Serializable;
 import java.util.NoSuchElementException;
 
 import given.LinkedQueue;
 import given.SinglyLinkedList;
 
-public class LinkedQueueHashTable {
+public class LinkedQueueHashTable implements Serializable {
 	private static final Course DEFUNCT = new Course(0, null, 0);
 	private Course[] table;
 	private int size;
