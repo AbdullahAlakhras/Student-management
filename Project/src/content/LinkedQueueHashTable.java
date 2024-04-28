@@ -7,7 +7,6 @@ import given.LinkedQueue;
 import given.SinglyLinkedList;
 
 public class LinkedQueueHashTable implements Serializable {
-	private static final Course DEFUNCT = new Course(0, null, 0);
 	private Course[] table;
 	private int size;
 
@@ -32,7 +31,7 @@ public class LinkedQueueHashTable implements Serializable {
 		size = 0;
 		int i = 0;
 		while (oldSize != size) {
-			if (tmp[i] != null && tmp[i] != DEFUNCT) {
+			if (tmp[i] != null) {
 				addCourse(tmp[i]);
 			}
 		}
@@ -81,53 +80,7 @@ public class LinkedQueueHashTable implements Serializable {
 			throw new Error("There is no Student in course with ID: " + id);
 		}
 	}
-	/*public static Course[] studentWaiting(int i) {
-		SinglyLinkedList<Course> course= new SinglyLinkedList<Course>();
-		boolean exists =false;
-		/*for(int j=0;j<size;j++) {
-			if (table[j] == null) {
-			} else {
-				Node current = table[j];
-				while (current != null) {
-					exists= current.course.existsEnrolled(i)||current.course.existsWaiting(i);
-					current = current.next;
-				}
-			}
-		}
-		for(int j =0;j<size;j++) {
-			if(table[j]!=null) {
-				
-			}
-		}
-		if(exists) {
-			for(int j =0;j<size;j++) {
-				if(table[j]!=null) {
-					Coourse current = table[j];
-					if(current.next==null) {
-						if(current.course.existsWaiting(i)) {
-							course.addFirst(current.course);
-						}
-					}else {
-						while (current.next != null) {
-							if(current.course.existsWaiting(i)) {
-								course.addFirst(current.course);
-							}
-							current = current.next;
-						}
-					}
-				}
-			}
-			Course[] courses = new Course[course.size()];
-			int k=0;
-			while(!course.isEmpty()) {
-				courses[k++]=course.removeFirst();
-			}
-			return courses;
-		}else {
-			throw new NoSuchElementException("No Student with id: " + i + " is in table");
-		}
 
-	}*/
 	public Course[] studentWaiting(int i) {
 		SinglyLinkedList<Course> course= new SinglyLinkedList<Course>();
 		boolean exists = false;

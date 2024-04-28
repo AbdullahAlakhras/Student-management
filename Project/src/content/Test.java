@@ -90,7 +90,6 @@ public class Test {
 				System.err.println("Please enter a valid choice");
 			}
 
-			//input.close();
 			// Save object
 		}
 
