@@ -1,5 +1,6 @@
 package content;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Test {
@@ -18,9 +19,10 @@ public class Test {
 		arab101.addStudent(a1);
 
 		while (!stop) {
-			System.out.println("====================\n"+"[1] Add a new course.\n" + "[2] Display students in a course.\n"
-					+ "[3] Add a student to a course.\n" + "[4] Drop a student from a course.\n"
-					+ "[5] Raise a course's capacity.\n" + "[6] Display a student's status.\n" + "[7] Exit");
+			System.out.println(
+					"====================\n" + "[1] Add a new course.\n" + "[2] Display students in a course.\n"
+							+ "[3] Add a student to a course.\n" + "[4] Drop a student from a course.\n"
+							+ "[5] Raise a course's capacity.\n" + "[6] Display a student's status.\n" + "[7] Exit");
 			System.out.print("Input: ");
 			choice = input.nextInt();
 			int crn;
@@ -54,33 +56,79 @@ public class Test {
 				System.out.print("Student name: ");
 				input.nextLine();
 				String name = input.nextLine();
-				table.addStudent(crn, new Student(id, name));
+				try {
+					table.addStudent(crn, new Student(id, name));
+				} catch (Error e) {
+					System.err.println("No course with this CRN");
+				}
 				break;
 			case 4:
 				System.out.print("CRN: ");
 				crn = input.nextInt();
 				System.out.print("Student ID: ");
 				id = input.nextInt();
-				table.dropStudent(id, crn);
+				try {
+					table.dropStudent(id, crn);
+				} catch (Error e1) {
+					System.err.println("No course with this CRN");
+				} catch (NoSuchElementException e2) {
+					System.err.println("No student with this ID");
+				}
 				break;
 			case 5:
 				System.out.print("CRN: ");
 				crn = input.nextInt();
 				System.out.print("Capacity increase: ");
 				int capIncrease = input.nextInt();
-				table.raiseCapacity(crn, capIncrease);
+				try {
+					table.raiseCapacity(crn, capIncrease);
+				} catch (IllegalArgumentException e1) {
+					System.err.println("Capacity cannot be increased by a negative number");
+				} catch (Error e2) {
+					System.err.println("No course with this CRN");
+				}
 				break;
 			case 6:
-				System.out.print("/nStudent ID: ");
+				System.out.print("Student ID: ");
 				id = input.nextInt();
-				Course[] enrolled = table.studentEnrolled(id); //studentEnrolled not implemented yet
-				Course[] waiting = table.studentWaiting(id); //studentWaiting not implemented yet
-				System.out.println("/nEnrolled Courses: ");
-				for(int i = 0; i < enrolled.length ; i++) 
-					enrolled[i].displayCourse();
-				System.out.println("/nWaiting Courses: ");
-				for(int j = 0; j < waiting.length ; j++)
-					waiting[j].displayCourse();
+				boolean isWaiting;
+				boolean isEnrolled;
+				Course[] enrolled = null;
+				Course[] waiting = null;
+				try {
+					enrolled = table.studentEnrolled(id);
+					isEnrolled = true;
+				} catch (NoSuchElementException e) {
+					isEnrolled = false;
+				}
+				try {
+					waiting = table.studentWaiting(id);
+					isWaiting = true;
+				} catch (NoSuchElementException e) {
+					isWaiting = false;
+				}
+
+				boolean exists = isEnrolled || isWaiting;
+				
+				if(isEnrolled || isWaiting) {
+					if (!isEnrolled)
+						System.out.println("Not enrolled in any courses");
+					else {
+						System.out.println("Enrolled Courses: ");
+						for (int i = 0; i < enrolled.length; i++)
+							enrolled[i].displayCourse();
+					}
+					
+					if (!isWaiting && exists)
+						System.out.println("Not in any waiting list");
+					else {
+						System.out.println("Waiting Courses: ");
+						for (int j = 0; j < waiting.length; j++)
+							waiting[j].displayCourse();
+					}
+				} else {
+					System.err.println("No students with this ID");
+				}
 				break;
 			case 7:
 				stop = true;

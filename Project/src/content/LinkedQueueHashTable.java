@@ -46,7 +46,7 @@ public class LinkedQueueHashTable implements Serializable {
 		int i = 0;
 		while (table[index] != null) {
 			i++;
-			index = hash(c.getCrn() + i);
+			index = (index+i)%table.length;
 		}
 		table[index] = c;
 	}
@@ -56,7 +56,7 @@ public class LinkedQueueHashTable implements Serializable {
 		int i = 0;
 		while (table[index] != null && table[index].getCrn() != crn) {
 			i++;
-			index = hash(crn + i);
+			index = (index+i)%table.length;
 		}
 		return table[index];
 
@@ -65,7 +65,7 @@ public class LinkedQueueHashTable implements Serializable {
 	public void addStudent(int crn, Student s) { // method 3
 		Course course = search(crn);
 		if (course == null) {
-			throw new NoSuchElementException("No course with CRN: " + crn);
+			throw new Error("No course with CRN: " + crn);
 		}
 		course.addStudent(s);
 		size++;
@@ -77,7 +77,7 @@ public class LinkedQueueHashTable implements Serializable {
 			throw new Error("There is no Course with CRN: " + crn);
 		}
 		if(!course.removeStudent(id)) {
-			throw new Error("There is no Student in course with ID: " + id);
+			throw new NoSuchElementException("There is no Student in course with ID: " + id);
 		}
 	}
 
@@ -95,19 +95,11 @@ public class LinkedQueueHashTable implements Serializable {
 		while(!course.isEmpty()) {
 			courses[k++]=course.removeFirst();
 		}
-		if(exists) {
-			return courses;
-		}else {
-			for(int f=0; f<table.length;f++) {
-				if(table[f]!=null && table[f].existsEnrolled(i)) {
-						return courses;
-				}
-			}
-		}
+		
 		if(!exists) {
 			throw new NoSuchElementException("No Student with id: " + i + " is in table");
 		}
-		return courses;
+		return courses; 
 	}
 	public Course[] studentEnrolled(int i) {
 		SinglyLinkedList<Course> course= new SinglyLinkedList<Course>();
@@ -123,19 +115,10 @@ public class LinkedQueueHashTable implements Serializable {
 		while(!course.isEmpty()) {
 			courses[k++]=course.removeFirst();
 		}
-		if(exists) {
-			return courses;
-		}else {
-			for(int f=0; f<table.length;f++) {
-				if(table[f]!=null && table[f].existsWaiting(i)) {
-						return courses;
-				}
-			}
-		}
 		if(!exists) {
 			throw new NoSuchElementException("No Student with id: " + i + " is in table");
 		}
-		return courses;
+		return courses; 
 	}
 	public void raiseCapacity(int crn, int r) {
 		Course course = search(crn);
