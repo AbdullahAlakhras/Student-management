@@ -1,18 +1,44 @@
 package content;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Test {
 
-	public static void main(String[] args) {
+	private static LinkedQueueHashTable loadFromFile() throws FileNotFoundException, IOException, ClassNotFoundException {
+	    LinkedQueueHashTable table = null;
+	    try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("data.txt"))) {
+	        table = (LinkedQueueHashTable) inputStream.readObject();
+	        System.out.println("Data loaded successfully.");
+	   
+	    if (table == null) {
+	        table = new LinkedQueueHashTable(5); // Default size if no data is loaded
+	        System.out.println("No object found , new table initialized");
+	    }
+	    return table;}}
+	
+	
+	
+	
+	private static void saveToFile(LinkedQueueHashTable table) {
+	    try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("data.txt"))) {
+	        outputStream.writeObject(table);
+	    } catch (IOException e) {
+	        e.printStackTrace();}}
+	
+	public static void main(String[] args) throws FileNotFoundException, ClassNotFoundException, IOException {
 		Scanner input = new Scanner(System.in);
 		int choice = 0;
 		boolean stop = false;
 
-		// Load object
+		LinkedQueueHashTable table = loadFromFile();
 
-		LinkedQueueHashTable table = new LinkedQueueHashTable(5);
 		Course arab101 = new Course(10, "ar101", 40);
 		Student a1 = new Student(100, "Abdullah");
 		table.addCourse(arab101);
@@ -132,8 +158,11 @@ public class Test {
 				break;
 			case 7:
 				stop = true;
-				System.out.println("Thank You For Using The Students Enrollment System!!!!!");
-				break;
+			    System.out.println("Saving data to file...");
+			    saveToFile(table);
+			    System.out.println("Data saved successfully.");
+			    System.out.println("Thank You For Using The Students Enrollment System!!!!!");
+			    break;
 			default:
 				System.err.println("Please enter a valid choice");
 			}
