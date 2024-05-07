@@ -1,6 +1,8 @@
 package given;
 
-public class SinglyLinkedList <E>{
+import java.io.Serializable;
+
+public class SinglyLinkedList <E> implements Serializable{
 	private Node<E> head=null;
 	private Node<E> tail=null;
 	private int size=0;

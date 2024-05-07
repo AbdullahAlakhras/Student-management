@@ -1,5 +1,8 @@
 package given;
-public class LinkedQueue<E> implements Queue<E> {
+
+import java.io.Serializable;
+
+public class LinkedQueue<E> implements Queue<E>, Serializable {
 	private SinglyLinkedList<E> list = new SinglyLinkedList<>( ); // an empty list
 	public LinkedQueue( ) { } // new queue relies on the initially empty list 
 	public int size( ) { return list.size( ); } 

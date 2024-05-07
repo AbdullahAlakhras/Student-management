@@ -1,12 +1,14 @@
 package content;
 
+import java.io.Serializable;
+
 import given.LinkedQueue;
 import given.SinglyLinkedList;
 
 
 
 
-public class Course {
+public class Course implements Serializable{
 	private int crn;
 	private String name;
 	private int capacity;

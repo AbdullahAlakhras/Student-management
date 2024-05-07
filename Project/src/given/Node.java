@@ -1,6 +1,8 @@
 package given;
 
-public class Node <E>{
+import java.io.Serializable;
+
+public class Node <E> implements Serializable{
 	private E data;
 	private Node<E> next;
 	public Node(E d, Node<E> n)

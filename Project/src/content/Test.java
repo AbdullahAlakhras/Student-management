@@ -17,11 +17,11 @@ public class Test {
 	        table = (LinkedQueueHashTable) inputStream.readObject();
 	        System.out.println("Data loaded successfully.");
 	   
-	    if (table == null) {
-	        table = new LinkedQueueHashTable(5); // Default size if no data is loaded
-	        System.out.println("No object found , new table initialized");
-	    }
-	    return table;}}
+
+	    } catch (FileNotFoundException e) {
+		        table = new LinkedQueueHashTable(5); // Default size if no data is loaded
+		        System.out.println("No object found , new table initialized");}
+	    return table;}
 	
 	
 	
@@ -38,11 +38,6 @@ public class Test {
 		boolean stop = false;
 
 		LinkedQueueHashTable table = loadFromFile();
-
-		Course arab101 = new Course(10, "ar101", 40);
-		Student a1 = new Student(100, "Abdullah");
-		table.addCourse(arab101);
-		arab101.addStudent(a1);
 
 		while (!stop) {
 			System.out.println(
