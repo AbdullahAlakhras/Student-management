@@ -34,6 +34,7 @@ public class LinkedQueueHashTable implements Serializable {
 			if (tmp[i] != null) {
 				addCourse(tmp[i]);
 			}
+			i++;
 		}
 
 	}
@@ -43,20 +44,17 @@ public class LinkedQueueHashTable implements Serializable {
 			enlarge();
 
 		int index = hash(c.getCrn());
-		int i = 0;
 		while (table[index] != null) {
-			i++;
-			index = (index+i)%table.length;
+			index = (index + 1) % table.length;
 		}
 		table[index] = c;
+		size++;
 	}
 
 	public Course search(int crn) { // method 2
 		int index = hash(crn);
-		int i = 0;
 		while (table[index] != null && table[index].getCrn() != crn) {
-			i++;
-			index = (index+i)%table.length;
+			index = (index + 1) % table.length;
 		}
 		return table[index];
 
@@ -68,7 +66,6 @@ public class LinkedQueueHashTable implements Serializable {
 			throw new Error("No course with CRN: " + crn);
 		}
 		course.addStudent(s);
-		size++;
 	}
 
 	public void dropStudent(int id, int crn) {
@@ -76,50 +73,52 @@ public class LinkedQueueHashTable implements Serializable {
 		if (course == null) {
 			throw new Error("There is no Course with CRN: " + crn);
 		}
-		if(!course.removeStudent(id)) {
+		if (!course.removeStudent(id)) {
 			throw new NoSuchElementException("There is no Student in course with ID: " + id);
 		}
 	}
 
 	public Course[] studentWaiting(int i) {
-		SinglyLinkedList<Course> course= new SinglyLinkedList<Course>();
+		SinglyLinkedList<Course> course = new SinglyLinkedList<Course>();
 		boolean exists = false;
-		for(int j =0;j<table.length;j++) {
-			if(table[j]!=null && table[j].existsWaiting(i)) {
+		for (int j = 0; j < table.length; j++) {
+			if (table[j] != null && table[j].existsWaiting(i)) {
 				course.addFirst(table[j]);
 			}
 		}
 		Course[] courses = new Course[course.size()];
-		exists=!course.isEmpty();
-		int k =0;
-		while(!course.isEmpty()) {
-			courses[k++]=course.removeFirst();
+		exists = !course.isEmpty();
+		int k = 0;
+		while (!course.isEmpty()) {
+			courses[k++] = course.removeFirst();
 		}
-		
-		if(!exists) {
+
+		if (!exists) {
 			throw new NoSuchElementException("No Student with id: " + i + " is in table");
 		}
-		return courses; 
+		return courses;
 	}
+
 	public Course[] studentEnrolled(int i) {
-		SinglyLinkedList<Course> course= new SinglyLinkedList<Course>();
+		SinglyLinkedList<Course> course = new SinglyLinkedList<Course>();
 		boolean exists = false;
-		for(int j =0;j<table.length;j++) {
-			if(table[j]!=null && table[j].existsEnrolled(i)) {
+		for (int j = 0; j < table.length; j++) {
+			if (table[j] != null && table[j].existsEnrolled(i)) {
 				course.addFirst(table[j]);
 			}
 		}
 		Course[] courses = new Course[course.size()];
-		exists=!course.isEmpty();
-		int k =0;
-		while(!course.isEmpty()) {
-			courses[k++]=course.removeFirst();
+		exists = !course.isEmpty();
+		int k = 0;
+		while (!course.isEmpty()) {
+			courses[k++] = course.removeFirst();
 		}
-		if(!exists) {
+		if (!exists) {
 			throw new NoSuchElementException("No Student with id: " + i + " is in table");
 		}
-		return courses; 
+		return courses;
 	}
+
 	public void raiseCapacity(int crn, int r) {
 		Course course = search(crn);
 		if (course == null) {
@@ -131,6 +130,6 @@ public class LinkedQueueHashTable implements Serializable {
 
 		course.addCapacity(r);
 
-		}
-
 	}
+
+}

@@ -11,27 +11,29 @@ import java.util.Scanner;
 
 public class Test {
 
-	private static LinkedQueueHashTable loadFromFile() throws FileNotFoundException, IOException, ClassNotFoundException {
-	    LinkedQueueHashTable table = null;
-	    try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("data.txt"))) {
-	        table = (LinkedQueueHashTable) inputStream.readObject();
-	        System.out.println("Data loaded successfully.");
-	   
+	private static LinkedQueueHashTable loadFromFile()
+			throws FileNotFoundException, IOException, ClassNotFoundException {
+		LinkedQueueHashTable table = null;
+		try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("data.txt"))) {
+			table = (LinkedQueueHashTable) inputStream.readObject();
+			System.out.println("Data loaded successfully.");
 
-	    } catch (FileNotFoundException e) {
-		        table = new LinkedQueueHashTable(5); // Default size if no data is loaded
-		        System.out.println("No object found , new table initialized");}
-	    return table;}
-	
-	
-	
-	
+		} catch (FileNotFoundException e) {
+			table = new LinkedQueueHashTable(5); // Default size if no data is loaded
+			System.out.println("No object found , new table initialized");
+		}
+		return table;
+	}
+
 	private static void saveToFile(LinkedQueueHashTable table) {
-	    try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("data.txt"))) {
-	        outputStream.writeObject(table);
-	    } catch (IOException e) {
-	        e.printStackTrace();}}
+		try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("data.txt"))) {
+			outputStream.writeObject(table);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
+
 	public static void main(String[] args) throws FileNotFoundException, ClassNotFoundException, IOException {
 		Scanner input = new Scanner(System.in);
 		int choice = 0;
@@ -130,8 +132,8 @@ public class Test {
 				}
 
 				boolean exists = isEnrolled || isWaiting;
-				
-				if(isEnrolled || isWaiting) {
+
+				if (isEnrolled || isWaiting) {
 					if (!isEnrolled)
 						System.out.println("Not enrolled in any courses");
 					else {
@@ -139,7 +141,7 @@ public class Test {
 						for (int i = 0; i < enrolled.length; i++)
 							enrolled[i].displayCourse();
 					}
-					
+
 					if (!isWaiting && exists)
 						System.out.println("Not in any waiting list");
 					else {
@@ -153,16 +155,15 @@ public class Test {
 				break;
 			case 7:
 				stop = true;
-			    System.out.println("Saving data to file...");
-			    saveToFile(table);
-			    System.out.println("Data saved successfully.");
-			    System.out.println("Thank You For Using The Students Enrollment System!!!!!");
-			    break;
+				System.out.println("Saving data to file...");
+				saveToFile(table);
+				System.out.println("Data saved successfully.");
+				System.out.println("Thank You For Using The Students Enrollment System!!!!!");
+				break;
 			default:
 				System.err.println("Please enter a valid choice");
 			}
 
-			// Save object
 		}
 
 	}
